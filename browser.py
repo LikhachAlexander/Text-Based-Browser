@@ -1,3 +1,5 @@
+import sys
+import os
 
 nytimes_com = '''
 This New Liquid Is Magnetic, and Mesmerizing
@@ -34,13 +36,50 @@ Twitter and Square Chief Executive Officer Jack Dorsey
  Tuesday, a signal of the strong ties between the Silicon Valley giants.
 '''
 
+internet = {"bloomberg.com": bloomberg_com,
+            "nytimes.com": nytimes_com}
+
+def create_file(dir_name, file_name, text):
+    if not os.path.exists(dir_name):
+        os.mkdir(dir_name)
+    with open(dir_name + '/' + file_name, 'w', encoding='utf-8') as file:
+        file.write(text)
+
+
+def read_cached(dir_name, new_file_name):
+    path = dir_name + '/' + new_file_name
+    if os.path.isfile(path):
+        with open(path, 'r') as fi:
+            return fi.read()
+    else:
+        return "Not exists!"
+
+
+# manage folder name
+folder_name = "dir-for-files"
+if len(sys.argv) == 2:
+    folder_name = sys.argv[1]
+
 # write your code here
 while True:
     command = input('> ')
     if command == 'exit':
         break
+
+    # check if in history
+    if '.com' not in command:
+        answer = read_cached(folder_name, command + '.txt')
+        if answer != "Not exists!":
+            print(answer)
+            continue
+        else:
+            print("Error: Incorrect URL")
+            continue
+    if command in internet:
+        print(internet[command])
+        # create file
+        file_name = command.replace('.com', '.txt')
+        create_file(folder_name, file_name, internet[command])
     else:
-        if command == "bloomberg.com":
-            print(bloomberg_com)
-        if command == "nytimes.com":
-            print(nytimes_com)
+        print("Error: Incorrect URL")
+
