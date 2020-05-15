@@ -1,5 +1,6 @@
 import sys
 import os
+from collections import deque
 
 nytimes_com = '''
 This New Liquid Is Magnetic, and Mesmerizing
@@ -61,25 +62,37 @@ if len(sys.argv) == 2:
     folder_name = sys.argv[1]
 
 # write your code here
+history_stack = deque()
+
 while True:
     command = input('> ')
     if command == 'exit':
         break
+    if command == "back":
+        history_stack.pop()
+        if len(history_stack) != 0:
+            page_name = history_stack.pop()
+            print(read_cached(folder_name, page_name + '.txt'))
+        continue
 
     # check if in history
     if '.com' not in command:
         answer = read_cached(folder_name, command + '.txt')
         if answer != "Not exists!":
             print(answer)
+            history_stack.append(command)
             continue
         else:
             print("Error: Incorrect URL")
             continue
+    # check for 'back'
+
     if command in internet:
         print(internet[command])
         # create file
-        file_name = command.replace('.com', '.txt')
-        create_file(folder_name, file_name, internet[command])
+        file_name = command.replace('.com', '')
+        history_stack.append(file_name)
+        create_file(folder_name, file_name + '.txt', internet[command])
     else:
         print("Error: Incorrect URL")
 
