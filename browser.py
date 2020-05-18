@@ -1,44 +1,17 @@
 import sys
 import os
+import requests
 from collections import deque
 
-nytimes_com = '''
-This New Liquid Is Magnetic, and Mesmerizing
 
-Scientists have created “soft” magnets that can flow 
-and change shape, and that could be a boon to medicine 
-and robotics. (Source: New York Times)
+domains = ['.com', '.net', '.org', '.ru']
+# manage folder name
+folder_name = "dir-for-files"
+if len(sys.argv) == 2:
+    folder_name = sys.argv[1]
+# stack
+history_stack = deque()
 
-
-Most Wikipedia Profiles Are of Men. This Scientist Is Changing That.
-
-Jessica Wade has added nearly 700 Wikipedia biographies for
- important female and minority scientists in less than two 
- years.
-
-'''
-
-bloomberg_com = '''
-The Space Race: From Apollo 11 to Elon Musk
-
-It's 50 years since the world was gripped by historic images
- of Apollo 11, and Neil Armstrong -- the first man to walk 
- on the moon. It was the height of the Cold War, and the charts
- were filled with David Bowie's Space Oddity, and Creedence's 
- Bad Moon Rising. The world is a very different place than 
- it was 5 decades ago. But how has the space race changed since
- the summer of '69? (Source: Bloomberg)
-
-
-Twitter CEO Jack Dorsey Gives Talk at Apple Headquarters
-
-Twitter and Square Chief Executive Officer Jack Dorsey 
- addressed Apple Inc. employees at the iPhone maker’s headquarters
- Tuesday, a signal of the strong ties between the Silicon Valley giants.
-'''
-
-internet = {"bloomberg.com": bloomberg_com,
-            "nytimes.com": nytimes_com}
 
 def create_file(dir_name, file_name, text):
     if not os.path.exists(dir_name):
@@ -47,36 +20,92 @@ def create_file(dir_name, file_name, text):
         file.write(text)
 
 
+def format_url_to_filename(url):
+    name = handle_url(url)
+    for domain in domains:
+        if name.endswith(domain):
+            return name[8:(-1 * len(domain))]
+    return name
+
+
 def read_cached(dir_name, new_file_name):
     path = dir_name + '/' + new_file_name
     if os.path.isfile(path):
-        with open(path, 'r') as fi:
+        with open(path, 'r', encoding="utf-8") as fi:
             return fi.read()
     else:
         return "Not exists!"
 
 
-# manage folder name
-folder_name = "dir-for-files"
-if len(sys.argv) == 2:
-    folder_name = sys.argv[1]
+def handle_request_text(web_address):
+    url = handle_url(web_address)
+    try:
+        r = requests.get(url, timeout=1.0)
+    except requests.exceptions.RequestException as error:
+        return error
+    if r:
+        # save content to file into storage
+        file_name = format_url_to_filename(url) + '.txt'
+        create_file(folder_name, file_name, r.text)
+        # add mark into history file
+        save_to_list(url=url, dir_name=folder_name)
+        return r.text
+    else:
+        return "Not found. Status: " + str(r.status_code)
 
-# write your code here
-history_stack = deque()
+
+def handle_url(url):
+    if "http://" in url:
+        return url
+    elif "https://" in url:
+        return url
+    else:
+        return "https://" + url
+
+
+def save_to_list(url, file_name='cached_list.txt', dir_name="dir-for-files"):
+    # check if history file exists
+    short_name = format_url_to_filename(url)
+    path = dir_name + '/' + file_name
+    if os.path.isfile(path):
+        with open(path, 'r', encoding="utf-8") as storage:
+            if short_name not in storage.read().split('\n'):
+                with open(path, 'a', encoding="utf-8") as file:
+                    file.write(short_name + '\n')
+
+    else:
+        with open(path, 'w', encoding="utf-8") as file:
+            file.write(short_name + '\n')
+
+
+def show_list(dir_name="dir-for-files", file_name='cached_list.txt'):
+    path = dir_name + '/' + file_name
+    if os.path.isfile(path):
+        with open(path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            return content
+    else:
+        return "Not found"
+
 
 while True:
     command = input('> ')
     if command == 'exit':
         break
     if command == "back":
-        history_stack.pop()
-        if len(history_stack) != 0:
-            page_name = history_stack.pop()
+        if len(history_stack) > 1:
+            history_stack.pop()
+            page_name = history_stack[-1]
             print(read_cached(folder_name, page_name + '.txt'))
         continue
+    if command == 'cache':
+        print(show_list())
+        continue
 
-    # check if in history
-    if '.com' not in command:
+    # check if no domain in command
+    # then look in history
+    domain_match = any(domain in command for domain in domains)
+    if not domain_match:
         answer = read_cached(folder_name, command + '.txt')
         if answer != "Not exists!":
             print(answer)
@@ -85,14 +114,8 @@ while True:
         else:
             print("Error: Incorrect URL")
             continue
-    # check for 'back'
 
-    if command in internet:
-        print(internet[command])
-        # create file
-        file_name = command.replace('.com', '')
-        history_stack.append(file_name)
-        create_file(folder_name, file_name + '.txt', internet[command])
-    else:
-        print("Error: Incorrect URL")
-
+    # handle request
+    response = handle_request_text(command)
+    print(response)
+    history_stack.append(format_url_to_filename(command))
