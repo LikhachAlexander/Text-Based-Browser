@@ -1,6 +1,7 @@
 import sys
 import os
 import requests
+from bs4 import BeautifulSoup
 from collections import deque
 
 
@@ -45,11 +46,12 @@ def handle_request_text(web_address):
         return error
     if r:
         # save content to file into storage
+        content = html_to_text(r.text)
         file_name = format_url_to_filename(url) + '.txt'
-        create_file(folder_name, file_name, r.text)
+        create_file(folder_name, file_name, content)
         # add mark into history file
         save_to_list(url=url, dir_name=folder_name)
-        return r.text
+        return content
     else:
         return "Not found. Status: " + str(r.status_code)
 
@@ -72,7 +74,6 @@ def save_to_list(url, file_name='cached_list.txt', dir_name="dir-for-files"):
             if short_name not in storage.read().split('\n'):
                 with open(path, 'a', encoding="utf-8") as file:
                     file.write(short_name + '\n')
-
     else:
         with open(path, 'w', encoding="utf-8") as file:
             file.write(short_name + '\n')
@@ -86,6 +87,17 @@ def show_list(dir_name="dir-for-files", file_name='cached_list.txt'):
             return content
     else:
         return "Not found"
+
+
+def html_to_text(text):
+    tags = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "a", "ol", "li"]
+    soup = BeautifulSoup(text, 'html.parser')
+    tag_cont = soup.find_all(tags)
+    content = ""
+    for tag in tag_cont:
+        content += (str(tag) + '\n')
+    new_soup = BeautifulSoup(content, 'html.parser')
+    return new_soup.get_text("\n", strip=True)
 
 
 while True:
