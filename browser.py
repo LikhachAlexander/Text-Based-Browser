@@ -2,6 +2,7 @@ import sys
 import os
 import requests
 from bs4 import BeautifulSoup
+from colorama import Fore,Style
 from collections import deque
 
 
@@ -90,18 +91,26 @@ def show_list(dir_name="dir-for-files", file_name='cached_list.txt'):
 
 
 def html_to_text(text):
-    tags = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "a", "ol", "li"]
+    page = ""
     soup = BeautifulSoup(text, 'html.parser')
-    tag_cont = soup.find_all(tags)
-    content = ""
-    for tag in tag_cont:
-        content += (str(tag) + '\n')
-    new_soup = BeautifulSoup(content, 'html.parser')
-    return new_soup.get_text("\n", strip=True)
+    body = soup.find('body')  # get body by tag <body></body>
+    descendants = body.descendants
+    for descendant in descendants:
+        if descendant.name in ["p", 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'ul', 'ol', 'li']:
+            try:
+                if descendant.name == 'a':
+                    page += Fore.BLUE + descendant.get_text().strip() + ' '
+                else:
+                    page += Style.RESET_ALL + descendant.get_text().strip() + ' '  # try to get descendants content.
+            except:
+                pass
+        else:
+            pass
+    return page
 
 
 while True:
-    command = input('> ')
+    command = input(Style.RESET_ALL + 'Browser: > ')
     if command == 'exit':
         break
     if command == "back":

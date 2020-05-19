@@ -1,131 +1,73 @@
-Navigation
-index
-index
-modules
-|
-modules
-Python
-»
-Python
+[0mNavigation [0mindex
+
+modules |
+
+Python »
+
 en
 3.8.3
-Documentation
-»
-Documentation
+Documentation  »
+    
+
+
+
+
+
+
+
+
+
 $('.inline-search').show(0);
-|
-Python 3.8.3 documentation
-Welcome! This is the documentation for Python 3.8.3.
-Parts of the documentation:
-What's new in Python 3.8?
-or
-all "What's new" documents
-since 2.0
-What's new in Python 3.8?
-all "What's new" documents
-Tutorial
-start here
-Tutorial
-Library Reference
-keep this under your pillow
-Library Reference
-Language Reference
-describes syntax and language elements
-Language Reference
-Python Setup and Usage
-how to use Python on different platforms
-Python Setup and Usage
-Python HOWTOs
-in-depth documents on specific topics
-Python HOWTOs
-Installing Python Modules
-installing from the Python Package Index & other sources
-Installing Python Modules
-Distributing Python Modules
-publishing modules for installation by others
-Distributing Python Modules
-Extending and Embedding
-tutorial for C/C++ programmers
-Extending and Embedding
-Python/C API
-reference for C/C++ programmers
-Python/C API
-FAQs
-frequently asked questions (with answers!)
-FAQs
-Indices and tables:
-Global Module Index
-quick access to all modules
-Global Module Index
-General Index
-all functions, classes, terms
-General Index
-Glossary
-the most important terms explained
-Glossary
-Search page
-search this documentation
-Search page
-Complete Table of Contents
-lists all sections and subsections
-Complete Table of Contents
-Meta information:
-Reporting bugs
-Reporting bugs
-Contributing to Docs
-Contributing to Docs
-About the documentation
-About the documentation
-History and License of Python
-History and License of Python
-Copyright
-Copyright
-Download
-Download these documents
-Download these documents
-Docs by version
-Python 3.9 (in development)
-Python 3.9 (in development)
-Python 3.8 (stable)
+         | [0mindex [34mindex [0mmodules | [34mmodules [0m [0mPython » [34mPython [0men
+3.8.3
+Documentation  » [34mDocumentation [0m$('.inline-search').show(0);
+         | [0mPython 3.8.3 documentation [0mWelcome! This is the documentation for Python 3.8.3. [0mParts of the documentation: [0mWhat's new in Python 3.8?
+ or all "What's new" documents since 2.0 [34mWhat's new in Python 3.8? [34mall "What's new" documents [0mTutorial
+start here [34mTutorial [0mLibrary Reference
+keep this under your pillow [34mLibrary Reference [0mLanguage Reference
+describes syntax and language elements [34mLanguage Reference [0mPython Setup and Usage
+how to use Python on different platforms [34mPython Setup and Usage [0mPython HOWTOs
+in-depth documents on specific topics [34mPython HOWTOs [0mInstalling Python Modules
+installing from the Python Package Index & other sources [34mInstalling Python Modules [0mDistributing Python Modules
+publishing modules for installation by others [34mDistributing Python Modules [0mExtending and Embedding
+tutorial for C/C++ programmers [34mExtending and Embedding [0mPython/C API
+reference for C/C++ programmers [34mPython/C API [0mFAQs
+frequently asked questions (with answers!) [34mFAQs [0mIndices and tables: [0mGlobal Module Index
+quick access to all modules [34mGlobal Module Index [0mGeneral Index
+all functions, classes, terms [34mGeneral Index [0mGlossary
+the most important terms explained [34mGlossary [0mSearch page
+search this documentation [34mSearch page [0mComplete Table of Contents
+lists all sections and subsections [34mComplete Table of Contents [0mMeta information: [0mReporting bugs [34mReporting bugs [0mContributing to Docs [34mContributing to Docs [0mAbout the documentation [34mAbout the documentation [0mHistory and License of Python [34mHistory and License of Python [0mCopyright [34mCopyright [0mDownload [0mDownload these documents [34mDownload these documents [0mDocs by version [0mPython 3.9 (in development)
 Python 3.8 (stable)
 Python 3.7 (stable)
-Python 3.7 (stable)
-Python 3.6 (security-fixes)
 Python 3.6 (security-fixes)
 Python 3.5 (security-fixes)
-Python 3.5 (security-fixes)
 Python 2.7 (EOL)
-Python 2.7 (EOL)
-All versions
-All versions
-Other resources
-PEP Index
-PEP Index
-Beginner's Guide
+All versions [0mPython 3.9 (in development) [34mPython 3.9 (in development) [0mPython 3.8 (stable) [34mPython 3.8 (stable) [0mPython 3.7 (stable) [34mPython 3.7 (stable) [0mPython 3.6 (security-fixes) [34mPython 3.6 (security-fixes) [0mPython 3.5 (security-fixes) [34mPython 3.5 (security-fixes) [0mPython 2.7 (EOL) [34mPython 2.7 (EOL) [0mAll versions [34mAll versions [0mOther resources [0mPEP Index
 Beginner's Guide
 Book List
-Book List
 Audio/Visual Talks
-Audio/Visual Talks
-Python Developerâs Guide
-Python Developerâs Guide
-Navigation
-index
-index
-modules
-|
-modules
-Python
-»
-Python
+Python Developerâs Guide [0mPEP Index [34mPEP Index [0mBeginner's Guide [34mBeginner's Guide [0mBook List [34mBook List [0mAudio/Visual Talks [34mAudio/Visual Talks [0mPython Developerâs Guide [34mPython Developerâs Guide [0mNavigation [0mindex
+
+modules |
+
+Python »
+
 en
 3.8.3
-Documentation
-»
-Documentation
+Documentation  »
+    
+
+
+
+
+
+
+
+
+
 $('.inline-search').show(0);
-|
-Copyright
-Please donate.
-Found a bug
-Sphinx
+         | [0mindex [34mindex [0mmodules | [34mmodules [0m [0mPython » [34mPython [0men
+3.8.3
+Documentation  » [34mDocumentation [0m$('.inline-search').show(0);
+         | [34mCopyright [34mPlease donate. [34mFound a bug [34mSphinx 
